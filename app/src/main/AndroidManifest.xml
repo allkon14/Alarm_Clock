@@ -28,8 +28,9 @@
 
         <receiver android:name="com.example.alarmclock.AlarmReceiver" />
 
-        <service android:name="com.example.alarmclock.RingtoneService"
-            android:enabled="true"></service>
+        <service
+            android:name="com.example.alarmclock.RingtoneService"
+            android:enabled="true" />
     </application>
 
 </manifest>

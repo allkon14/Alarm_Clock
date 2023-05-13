@@ -10,6 +10,7 @@ import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 
 class RingtoneService: Service() {
@@ -25,7 +26,7 @@ class RingtoneService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        var state: String? = intent!!.getStringExtra("extra")
+        val state: String? = intent!!.getStringExtra("extra")
         assert(state!=null)
         when(state){
             "on" -> id = 1
@@ -36,38 +37,42 @@ class RingtoneService: Service() {
             playAlarm()
             this.isRunning=true
             this.id=0
+            Log.i("onStartCommand","1 0")
+
         }
         else if(this.isRunning && id == 0)
         {
             r.stop()
             this.isRunning=false
             this.id=0
+            Log.i("onStartCommand","0 0")
+
         }
         else if(!this.isRunning && id == 0)
         {
-
+            Log.i("onStartCommand","0 0")
             this.isRunning=false
             this.id=0
         }
         else if (this.isRunning && id == 1)
         {
 
-
+            Log.i("onStartCommand","1 1")
             this.isRunning=true
             this.id=1
         }
-        else
-        {
-
-        }
+//        else
+//        {
+//
+//        }
         //playAlarm()
         //return super.onStartCommand(intent, flags, startId)
         return START_NOT_STICKY
     }
 
     private fun fireNatifacation(){
-        var main_activity_intent : Intent = Intent(this, MainActivity::class.java)
-        var pi: PendingIntent = PendingIntent.getActivity(
+        val main_activity_intent : Intent = Intent(this, MainActivity::class.java)
+        val pi: PendingIntent = PendingIntent.getActivity(
             this,
             0,
             main_activity_intent,
